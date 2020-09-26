@@ -1,24 +1,30 @@
 /**
  * 
  */
-package br.com.HealthTrack;
+package br.com.HealthTrack.Entity;
 
 /**
  * Classe que abstrai uma atividade fisica
- * @author Jaelson Apolinario
+ * 
+ * @author Andrea Serpeloni - aserpeloni@hotmail.com
+ * @author Fernando Grieco Feres - fegferes@gmail.com
+ * @author Gabriel Silva Marçal - gmarcal6@gmail.com
+ * @author Herbert de Souza Souto - herbert-93@hotmail.com
+ * @author Jaelson Apolinário de Oliveira - jaelson.apolinario@gmail.com
+ * 
  * @version 1.0
  */
-public class AtividadeFisica {
+public class AtividadeFisicaEntity {
 	private int codigo;
 	private String descricao;
-	
-	
+
 	/**
 	 * Cria uma instancia de AtividadeFisica
-	 * @param codigo codigo da atividade
+	 * 
+	 * @param codigo    codigo da atividade
 	 * @param descricao descricao da atividade
 	 */
-	public AtividadeFisica(int codigo, String descricao) {
+	public AtividadeFisicaEntity(int codigo, String descricao) {
 		super();
 		this.codigo = codigo;
 		this.descricao = descricao;
@@ -26,30 +32,34 @@ public class AtividadeFisica {
 
 	/**
 	 * Retorna o codigo
+	 * 
 	 * @return codigo
 	 */
 	public int getCodigo() {
 		return codigo;
 	}
-	
+
 	/**
 	 * Atribui valor ao codigo
+	 * 
 	 * @param codigo
 	 */
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
-	
+
 	/**
 	 * Retorna a descricao
+	 * 
 	 * @return descricao
 	 */
 	public String getDescricao() {
 		return descricao;
 	}
-	
+
 	/**
 	 * Atribui valor a descricao
+	 * 
 	 * @param descricao
 	 */
 	public void setDescricao(String descricao) {

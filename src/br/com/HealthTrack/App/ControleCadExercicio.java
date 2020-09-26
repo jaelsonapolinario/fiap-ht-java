@@ -1,10 +1,12 @@
-package br.com.HealthTrack;
+package br.com.HealthTrack.App;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
+
+import br.com.HealthTrack.Entity.AtividadeFisicaEntity;
 
 /**
  * Classe de controle de Exercicio
@@ -13,14 +15,14 @@ import java.util.Optional;
  */
 public class ControleCadExercicio {
 	private ArrayList<Exercicio> lista;
-	private ArrayList<AtividadeFisica> listaAtividade;
+	private ArrayList<AtividadeFisicaEntity> listaAtividade;
 	
 	/**
 	 * Cria uma instancia de ControleCadExercicio
 	 */
 	public ControleCadExercicio() {
 		lista = new ArrayList<Exercicio>();
-		listaAtividade = new ArrayList<AtividadeFisica>();
+		listaAtividade = new ArrayList<AtividadeFisicaEntity>();
 	}
 	
 	/**
@@ -40,14 +42,14 @@ public class ControleCadExercicio {
 	 * @param atividade descricao atividade
 	 * @return AtividadeFisica objeto
 	 */
-	public AtividadeFisica consultarAtividadeFisica(String atividade) {
-		Optional<AtividadeFisica> resultado = listaAtividade.stream().filter(x -> x.getDescricao() == atividade).findFirst();
+	public AtividadeFisicaEntity consultarAtividadeFisica(String atividade) {
+		Optional<AtividadeFisicaEntity> resultado = listaAtividade.stream().filter(x -> x.getDescricao() == atividade).findFirst();
 		
 		if(resultado.isPresent()) {
 			return resultado.get();
 		}
 		else {
-			AtividadeFisica novoItem = new AtividadeFisica(listaAtividade.size() + 1, atividade);
+			AtividadeFisicaEntity novoItem = new AtividadeFisicaEntity(listaAtividade.size() + 1, atividade);
 			listaAtividade.add(novoItem);
 			return novoItem;
 		}

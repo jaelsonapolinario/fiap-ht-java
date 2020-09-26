@@ -1,6 +1,8 @@
-package br.com.HealthTrack;
+package br.com.HealthTrack.App;
 
 import java.util.Date;
+
+import br.com.HealthTrack.Entity.AtividadeFisicaEntity;
 
 /**
  * Classe que abstrai um exercicio
@@ -9,7 +11,7 @@ import java.util.Date;
  */
 public class Exercicio {
 	private Usuario usuario;
-	private AtividadeFisica atividade;
+	private AtividadeFisicaEntity atividade;
 	private int tempoExecutado;
 	private Date data;
 	
@@ -20,7 +22,7 @@ public class Exercicio {
 	 * @param tempoExecutado quantidade de tempo executado em minutos
 	 * @param data data da criacao do dado
 	 */
-	public Exercicio(Usuario usuario, AtividadeFisica atividade, int tempoExecutado, Date data) {
+	public Exercicio(Usuario usuario, AtividadeFisicaEntity atividade, int tempoExecutado, Date data) {
 		this.usuario = usuario;
 		this.atividade = atividade;
 		this.tempoExecutado = tempoExecutado;
@@ -47,7 +49,7 @@ public class Exercicio {
 	 * Retorna a atividade
 	 * @return atividade
 	 */
-	public AtividadeFisica getAtividade() {
+	public AtividadeFisicaEntity getAtividade() {
 		return atividade;
 	}
 
@@ -55,7 +57,7 @@ public class Exercicio {
 	 * Atribui um valor a atividade
 	 * @param atividade
 	 */
-	public void setAtividade(AtividadeFisica atividade) {
+	public void setAtividade(AtividadeFisicaEntity atividade) {
 		this.atividade = atividade;
 	}
 

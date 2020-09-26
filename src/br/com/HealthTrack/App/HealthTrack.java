@@ -1,6 +1,7 @@
-package br.com.HealthTrack;
+package br.com.HealthTrack.App;
 
 import java.text.ParseException;
+import br.com.HealthTrack.DAO.*;
 
 /**
  * Classe de teste que start a instancia das demais classes

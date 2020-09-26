@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.com.HealthTrack;
+package br.com.HealthTrack.App;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

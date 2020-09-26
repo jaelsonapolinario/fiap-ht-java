@@ -1,4 +1,4 @@
-package br.com.HealthTrack;
+package br.com.HealthTrack.App;
 
 /**
  * Classe que abstrai uma refeicao
