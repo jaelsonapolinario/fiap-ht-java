@@ -3,6 +3,8 @@
  */
 package br.com.HealthTrack.Entity;
 
+import br.com.HealthTrack.Interface.EntityInterface;
+
 /**
  * Classe que abstrai uma atividade fisica
  * 
@@ -14,7 +16,7 @@ package br.com.HealthTrack.Entity;
  * 
  * @version 1.0
  */
-public class AtividadeFisicaEntity {
+public class AtividadeFisicaEntity implements EntityInterface  {
 	private int codigo;
 	private String descricao;
 
@@ -25,7 +27,6 @@ public class AtividadeFisicaEntity {
 	 * @param descricao descricao da atividade
 	 */
 	public AtividadeFisicaEntity(int codigo, String descricao) {
-		super();
 		this.codigo = codigo;
 		this.descricao = descricao;
 	}
