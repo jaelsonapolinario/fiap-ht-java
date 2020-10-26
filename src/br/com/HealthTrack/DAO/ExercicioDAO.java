@@ -12,12 +12,22 @@ import br.com.HealthTrack.Entity.*;
 import br.com.HealthTrack.Interface.*;
 import br.com.HealthTrack.Singleton.ConnectionManager;
 
+/**
+ * Classe DAO da entidade ExercicioEntity
+ * 
+ * @author Andrea Serpeloni - aserpeloni@hotmail.com
+ * @author Fernando Grieco Feres - fegferes@gmail.com
+ * @author Gabriel Silva Marçal - gmarcal6@gmail.com
+ * @author Herbert de Souza Souto - herbert-93@hotmail.com
+ * @author Jaelson Apolinário de Oliveira - jaelson.apolinario@gmail.com
+ * 
+ * @version 1.0
+ */
 public class ExercicioDAO implements DAOInterface {
 	private Connection conexao;
 
 	@Override
 	public void insert(EntityInterface entity) {
-		// TODO Auto-generated method stub
 		ExercicioEntity dado = (ExercicioEntity) entity;
 		PreparedStatement stmt = null;
 		try {

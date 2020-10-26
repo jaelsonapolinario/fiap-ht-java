@@ -15,7 +15,7 @@ public class TesteApp {
 	public static void main(String[] args) {
 		
 		
-		// Teste FASE6 CAP2
+		// Teste FASE6 CAP8
 		//AtividadeFisica
 		DAOInterface objDAO = new AtividadeFisicaDAO();
 		EntityInterface atividadeFisica = null;
@@ -23,14 +23,13 @@ public class TesteApp {
 		
 		for(EntityInterface item : objDAO.getAll()){
 			AtividadeFisicaEntity entity = (AtividadeFisicaEntity)item;
-            System.out.println(entity.getCodigo() +" - " +entity.getDescricao());
+            System.out.println(entity.toString());
             
             if(atividadeFisica == null)
             	atividadeFisica = entity;
         }
 		
 		//Usuario
-		
 		EntityInterface usuario = new UsuarioEntity(1, "Fulano1", "de Tal", "fulano1@email.com", "+5511987651234", Calendar.getInstance(), "1234", true);
 		
 		//Exercicio
