@@ -1,11 +1,12 @@
-package br.com.HealthTrack.App;
+package br.com.HealthTrack.Entity;
+import br.com.HealthTrack.Interface.EntityInterface;
 
 /**
  * Classe que abstrai uma refeicao
  * @author Jaelson Apolinario
  * @version 1.0
  */
-public class Refeicao {
+public class RefeicaoEntity implements EntityInterface {
 
 	private int codigo;
 	private String descricao;
@@ -15,7 +16,7 @@ public class Refeicao {
 	 * @param codigo codigo da refeicao
 	 * @param descricao descricao da refeicao
 	 */
-	public Refeicao(int codigo, String descricao) {
+	public RefeicaoEntity(int codigo, String descricao) {
 		super();
 		this.codigo = codigo;
 		this.descricao = descricao;

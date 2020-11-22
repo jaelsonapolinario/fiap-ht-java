@@ -6,8 +6,10 @@ package br.com.HealthTrack.App;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
+import br.com.HealthTrack.Entity.*;
 
 /**
  * Classe de controle de Usuario
@@ -16,10 +18,10 @@ import java.util.Optional;
  */
 public class ControleCadUsuario {
 	
-	private ArrayList<Usuario> listaUsuario;
+	private ArrayList<UsuarioEntity> listaUsuario;
 	
 	public ControleCadUsuario() {
-		listaUsuario = new ArrayList<Usuario>();
+		listaUsuario = new ArrayList<UsuarioEntity>();
 	}
 	
 	/**
@@ -28,9 +30,9 @@ public class ControleCadUsuario {
 	 * @param senha senha do usuario
 	 * @return Usuario autenticado
 	 */
-	public Usuario autenticar(String email, String senha)
+	public UsuarioEntity autenticar(String email, String senha)
 	{
-		Optional<Usuario> usuario = listaUsuario.stream().filter(u -> u.getEmail() == email && u.getSenha() == senha)
+		Optional<UsuarioEntity> usuario = listaUsuario.stream().filter(u -> u.getEmail() == email && u.getSenha() == senha)
 				.findFirst();
 		
 		return usuario.isPresent() ? usuario.get() : null;
@@ -49,9 +51,7 @@ public class ControleCadUsuario {
 	public void cadastrar(String nome, String sobrenome, String email, String celular, String dtNascimento,
 			String senha) throws ParseException {
 		
-		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-		Date data = formato.parse(dtNascimento);
-		Usuario novoUsuario = new Usuario(listaUsuario.size() + 1, nome, sobrenome, email, celular, data,
+		UsuarioEntity novoUsuario = new UsuarioEntity(listaUsuario.size() + 1, nome, sobrenome, email, celular, Calendar.getInstance(),
 				senha, true);
 		listaUsuario.add(novoUsuario);
 	}
@@ -61,9 +61,9 @@ public class ControleCadUsuario {
 	 * @param codigo
 	 * @return Usuario objeto
 	 */
-	public Usuario consultar(int codigo)
+	public UsuarioEntity consultar(int codigo)
 	{
-		Optional<Usuario> usuario = listaUsuario.stream().filter(u -> u.getCodigo() == codigo)
+		Optional<UsuarioEntity> usuario = listaUsuario.stream().filter(u -> u.getCodigo() == codigo)
 				.findFirst();
 		
 		return usuario.get();

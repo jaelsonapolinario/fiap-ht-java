@@ -3,8 +3,10 @@ package br.com.HealthTrack.App;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
+import br.com.HealthTrack.Entity.*;
 
 import br.com.HealthTrack.Entity.AtividadeFisicaEntity;
 
@@ -14,14 +16,14 @@ import br.com.HealthTrack.Entity.AtividadeFisicaEntity;
  * @version 1.0
  */
 public class ControleCadExercicio {
-	private ArrayList<Exercicio> lista;
+	private ArrayList<ExercicioEntity> lista;
 	private ArrayList<AtividadeFisicaEntity> listaAtividade;
 	
 	/**
 	 * Cria uma instancia de ControleCadExercicio
 	 */
 	public ControleCadExercicio() {
-		lista = new ArrayList<Exercicio>();
+		lista = new ArrayList<ExercicioEntity>();
 		listaAtividade = new ArrayList<AtividadeFisicaEntity>();
 	}
 	
@@ -31,10 +33,9 @@ public class ControleCadExercicio {
 	 * @param atividade descricao atividade
 	 * @param tempoExecutado em minutos
 	 */
-	public void cadastrar(Usuario usuario, String atividade, int tempoExecutado) {
+	public void cadastrar(UsuarioEntity usuario, String atividade, int tempoExecutado) {
 		LocalDateTime hoje = LocalDateTime.now();
-		Date dtHoje = Date.from(hoje.atZone(ZoneId.systemDefault()).toInstant());
-		lista.add(new Exercicio(usuario, consultarAtividadeFisica(atividade), tempoExecutado, dtHoje));
+		lista.add(new ExercicioEntity(usuario, consultarAtividadeFisica(atividade), tempoExecutado, Calendar.getInstance()));
 	}
 	
 	/**

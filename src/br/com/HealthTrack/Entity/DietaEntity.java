@@ -1,15 +1,16 @@
-package br.com.HealthTrack.App;
+package br.com.HealthTrack.Entity;
 
 import java.util.Date;
+import br.com.HealthTrack.Interface.EntityInterface;
 
 /**
  * Classe que abstrai uma dieta
  * @author Jaelson Apolinario
  * @version 1.0
  */
-public class Dieta {
-	private Usuario usuario;
-	private Refeicao refeicao;
+public class DietaEntity implements EntityInterface {
+	private UsuarioEntity usuario;
+	private RefeicaoEntity refeicao;
 	private double calorias;
 	private Date data;
 	
@@ -20,7 +21,7 @@ public class Dieta {
 	 * @param calorias quantidade de calorias da refeicao
 	 * @param data data da criacao do dado
 	 */
-	public Dieta(Usuario usuario, Refeicao refeicao, double calorias, Date data) {
+	public DietaEntity(UsuarioEntity usuario, RefeicaoEntity refeicao, double calorias, Date data) {
 		super();
 		this.usuario = usuario;
 		this.refeicao = refeicao;
@@ -32,7 +33,7 @@ public class Dieta {
 	 * Retorna o usuario
 	 * @return the usuario
 	 */
-	public Usuario getUsuario() {
+	public UsuarioEntity getUsuario() {
 		return usuario;
 	}
 	
@@ -40,7 +41,7 @@ public class Dieta {
 	 * Atribui um valor a usuario
 	 * @param usuario the usuario to set
 	 */
-	public void setUsuario(Usuario usuario) {
+	public void setUsuario(UsuarioEntity usuario) {
 		this.usuario = usuario;
 	}
 	
@@ -48,7 +49,7 @@ public class Dieta {
 	 * Retorna a refeicao
 	 * @return the refeicao
 	 */
-	public Refeicao getRefeicao() {
+	public RefeicaoEntity getRefeicao() {
 		return refeicao;
 	}
 	
@@ -56,7 +57,7 @@ public class Dieta {
 	 * Atribui um valor a refeicao
 	 * @param refeicao
 	 */
-	public void setRefeicao(Refeicao refeicao) {
+	public void setRefeicao(RefeicaoEntity refeicao) {
 		this.refeicao = refeicao;
 	}
 	

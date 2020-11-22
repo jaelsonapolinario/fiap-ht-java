@@ -5,10 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-
-import br.com.HealthTrack.DAO.*;
 import br.com.HealthTrack.Entity.*;
 import br.com.HealthTrack.Interface.*;
+import br.com.HealthTrack.DAO.*;
 
 public class TesteApp {
 
@@ -44,6 +43,8 @@ public class TesteApp {
             if(atividadeFisica == null)
             	atividadeFisica = entity;
         }
+		
+		EntityInterface byId = execDAO.findById(1);
 
 	}
 

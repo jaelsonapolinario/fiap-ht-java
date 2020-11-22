@@ -1,14 +1,15 @@
-package br.com.HealthTrack.App;
+package br.com.HealthTrack.Entity;
 
 import java.util.Date;
+import br.com.HealthTrack.Interface.EntityInterface;
 
 /**
  * Classe que abstrai uma anatomia
  * @author Jaelson Apolinario
  * @version 1.0
  */
-public class Anatomia {
-	private Usuario usuario;
+public class AnatomiaEntity implements EntityInterface {
+	private UsuarioEntity usuario;
 	private double altura;
 	private double peso;
 	private Date data;
@@ -20,7 +21,7 @@ public class Anatomia {
 	 * @param peso peso do usuario
 	 * @param data data do momento da criacao do dado
 	 */
-	public Anatomia(Usuario usuario, double altura, double peso, Date data) {
+	public AnatomiaEntity(UsuarioEntity usuario, double altura, double peso, Date data) {
 		super();
 		this.usuario = usuario;
 		this.altura = altura;
@@ -32,7 +33,7 @@ public class Anatomia {
 	 * Retorna o usuario
 	 * @return usuario
 	 */
-	public Usuario getUsuario() {
+	public UsuarioEntity getUsuario() {
 		return usuario;
 	}
 
@@ -40,7 +41,7 @@ public class Anatomia {
 	 * Atribui um valor para usuario
 	 * @param usuario
 	 */
-	public void setUsuario(Usuario usuario) {
+	public void setUsuario(UsuarioEntity usuario) {
 		this.usuario = usuario;
 	}
 

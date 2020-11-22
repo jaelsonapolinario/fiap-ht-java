@@ -91,4 +91,22 @@ public class AtividadeFisicaDAO implements DAOInterface {
 		}
 	}
 
+	@Override
+	public boolean update(int id,EntityInterface entity) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean delete(int id) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public EntityInterface findById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

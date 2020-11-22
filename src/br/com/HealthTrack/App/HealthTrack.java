@@ -1,7 +1,9 @@
 package br.com.HealthTrack.App;
 
 import java.text.ParseException;
+
 import br.com.HealthTrack.DAO.*;
+import br.com.HealthTrack.Entity.*;
 
 /**
  * Classe de teste que start a instancia das demais classes
@@ -37,7 +39,7 @@ public class HealthTrack {
 		}
 		
 		//autenticar usuario
-		Usuario usuarioAutenticado = controleUsuario.autenticar("fulano1@email.com", "1234");
+		UsuarioEntity usuarioAutenticado = controleUsuario.autenticar("fulano1@email.com", "1234");
 		
 		if(usuarioAutenticado != null) {
 			//cadastrar anatomia

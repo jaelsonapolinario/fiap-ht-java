@@ -118,4 +118,58 @@ public class ExercicioDAO implements DAOInterface {
 		return new AtividadeFisicaEntity(codigo, descricao);
 	}
 
+	@Override
+	public boolean update(int id, EntityInterface entity) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean delete(int id) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public EntityInterface findById(int id) {
+		EntityInterface result = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			conexao = ConnectionManager.getInstance().getConnection();
+			stmt = conexao.prepareStatement("SELECT * FROM T_HT_EXEC EX, T_HT_AT_FISICA AF, T_HT_USUARIO US "
+					+ "WHERE AF.CD_ATIVIDADE = EX.T_HT_AT_FISICA_CD_ATIVIDADE "
+					+ " AND US.CD_USUARIO = EX.T_HT_USUARIO_CD_USUARIO"
+					+ " AND EX.ID = ?");
+			
+			stmt.setInt(1, id);
+			rs = stmt.executeQuery();
+			
+			if(rs.next()) {
+				int codigo = rs.getInt("CD_ATIVIDADE");
+				String descricao = rs.getString("DS_ATIVIDADE");
+				
+				EntityInterface usuario = getUsuarioFromResultSet(rs);
+				EntityInterface atividadeFisica = getAtividadeFisicaFromResultSet(rs);
+				
+			   java.sql.Date data = rs.getDate("DT_DATA");
+	           Calendar dataCalendar = Calendar.getInstance();
+	           dataCalendar.setTimeInMillis(data.getTime());
+	           result = new ExercicioEntity((UsuarioEntity)usuario, (AtividadeFisicaEntity)atividadeFisica, rs.getInt("VL_TEMPO_EXEC"),dataCalendar);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				stmt.close();
+				rs.close();
+				conexao.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+
 }
