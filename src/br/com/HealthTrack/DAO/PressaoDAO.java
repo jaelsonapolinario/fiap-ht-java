@@ -9,38 +9,28 @@ import java.util.Calendar;
 import java.util.List;
 
 import br.com.HealthTrack.Entity.*;
-import br.com.HealthTrack.Interface.*;
+import br.com.HealthTrack.Interface.DAOInterface;
+import br.com.HealthTrack.Interface.EntityInterface;
 import br.com.HealthTrack.Singleton.ConnectionManager;
 import br.com.HealthTrack.Singleton.DAOUtil;
 
-/**
- * Classe DAO da entidade ExercicioEntity
- * 
- * @author Andrea Serpeloni - aserpeloni@hotmail.com
- * @author Fernando Grieco Feres - fegferes@gmail.com
- * @author Gabriel Silva Marçal - gmarcal6@gmail.com
- * @author Herbert de Souza Souto - herbert-93@hotmail.com
- * @author Jaelson Apolinário de Oliveira - jaelson.apolinario@gmail.com
- * 
- * @version 1.0
- */
-public class ExercicioDAO implements DAOInterface {
+public class PressaoDAO implements DAOInterface {
 	private Connection conexao;
-
+	
 	@Override
 	public boolean insert(EntityInterface entity) {
-		ExercicioEntity dado = (ExercicioEntity) entity;
+		PressaoEntity dado = (PressaoEntity) entity;
 		PreparedStatement stmt = null;
 		boolean result = false;
 		try {
 			conexao = ConnectionManager.getInstance().getConnection();
-			String sql = "INSERT INTO T_HT_EXEC "
-					+ "(ID, T_HT_USUARIO_CD_USUARIO, T_HT_AT_FISICA_CD_ATIVIDADE, VL_TEMPO_EXEC, DT_DATA) " + "VALUES "
-					+ "(SQ_EXEC.NEXTVAL, ?, ?, ?, ? )";
+			String sql = "INSERT INTO T_HT_PRESSAO "
+					+ "(ID, T_HT_USUARIO_CD_USUARIO, VL_SISTOLICA, VL_DIASTOLICA, DT_DATA) " + "VALUES "
+					+ "(SQ_DIETA.NEXTVAL, ?, ?, ?, ? )";
 			stmt = conexao.prepareStatement(sql);
 			stmt.setInt(1, dado.getUsuario().getCodigo());
-			stmt.setInt(2, dado.getAtividade().getCodigo());
-			stmt.setInt(3, dado.getTempoExecutado());
+			stmt.setDouble(2, dado.getSistolica());
+			stmt.setDouble(3, dado.getDiastolica());
 			java.sql.Date data = new java.sql.Date(dado.getData().getTimeInMillis());
 			stmt.setDate(4, data);
 
@@ -67,22 +57,20 @@ public class ExercicioDAO implements DAOInterface {
 		ResultSet rs = null;
 		try {
 			conexao = ConnectionManager.getInstance().getConnection();
-			stmt = conexao.prepareStatement("SELECT * FROM T_HT_EXEC EX, T_HT_AT_FISICA AF, T_HT_USUARIO US "
-					+ "WHERE AF.CD_ATIVIDADE = EX.T_HT_AT_FISICA_CD_ATIVIDADE "
-					+ " AND US.CD_USUARIO = EX.T_HT_USUARIO_CD_USUARIO");
+			stmt = conexao.prepareStatement("SELECT * FROM T_HT_PRESSAO PR, T_HT_USUARIO US"
+					+ " WHERE US.CD_USUARIO = PR.T_HT_USUARIO_CD_USUARIO");
 			rs = stmt.executeQuery();
 
 			while (rs.next()) {
+
+				UsuarioEntity usuario = DAOUtil.getInstance().getUsuarioFromResultSet(rs);
 				int id = rs.getInt("ID");
-				int tempoExec = rs.getInt("VL_TEMPO_EXEC");
+				double sistolica = rs.getDouble("VL_SISTOLICA");
+				double diastolica = rs.getDouble("VL_DIASTOLICA");
 				java.sql.Date data = rs.getDate("DT_DATA");
 				Calendar dataCalendar = Calendar.getInstance();
 				dataCalendar.setTimeInMillis(data.getTime());
-
-				UsuarioEntity usuario = DAOUtil.getInstance().getUsuarioFromResultSet(rs);
-				AtividadeFisicaEntity atividadeFisica = DAOUtil.getInstance().getAtividadeFisicaFromResultSet(rs);
-
-				EntityInterface dado = new ExercicioEntity(id, usuario, atividadeFisica, tempoExec, dataCalendar);
+				EntityInterface dado = new PressaoEntity(id, sistolica, diastolica, dataCalendar, usuario);
 				lista.add(dado);
 			}
 		} catch (SQLException e) {
@@ -101,19 +89,19 @@ public class ExercicioDAO implements DAOInterface {
 
 	@Override
 	public boolean update(int id, EntityInterface entity) {
-		ExercicioEntity dado = (ExercicioEntity) entity;
+		PressaoEntity dado = (PressaoEntity) entity;
 		PreparedStatement stmt = null;
 		boolean result = false;
 		try {
 			conexao = ConnectionManager.getInstance().getConnection();
-			String sql = "UPDATE T_HT_EXEC SET T_HT_USUARIO_CD_USUARIO = ?, T_HT_AT_FISICA_CD_ATIVIDADE = ?, VL_TEMPO_EXEC = ?, DT_DATA = ? WHERE T_HT_EXEC = ?";
+			String sql = "UPDATE T_HT_PRESSAO SET T_HT_USUARIO_CD_USUARIO = ?, VL_SISTOLICA = ?, VL_DIASTOLICA = ?, DT_DATA = ? WHERE ID = ?";
 			stmt = conexao.prepareStatement(sql);
 			stmt.setInt(1, dado.getUsuario().getCodigo());
-			stmt.setInt(2, dado.getAtividade().getCodigo());
-			stmt.setInt(3, dado.getTempoExecutado());
+			stmt.setDouble(2, dado.getSistolica());
+			stmt.setDouble(3, dado.getDiastolica());
 			java.sql.Date data = new java.sql.Date(dado.getData().getTimeInMillis());
 			stmt.setDate(4, data);
-			stmt.setInt(5, dado.getId());
+			stmt.setInt(5, id);
 			stmt.executeUpdate();
 
 			result = true;
@@ -137,7 +125,7 @@ public class ExercicioDAO implements DAOInterface {
 		boolean result = false;
 		try {
 			conexao = ConnectionManager.getInstance().getConnection();
-			String sql = "DELETE FROM T_HT_EXEC WHERE ID = ?";
+			String sql = "DELETE FROM T_HT_PRESSAO WHERE ID = ?";
 			stmt = conexao.prepareStatement(sql);
 			stmt.setInt(1, id);
 			stmt.executeUpdate();
@@ -163,23 +151,21 @@ public class ExercicioDAO implements DAOInterface {
 		ResultSet rs = null;
 		try {
 			conexao = ConnectionManager.getInstance().getConnection();
-			stmt = conexao.prepareStatement("SELECT * FROM T_HT_EXEC EX, T_HT_AT_FISICA AF, T_HT_USUARIO US "
-					+ "WHERE AF.CD_ATIVIDADE = EX.T_HT_AT_FISICA_CD_ATIVIDADE "
-					+ " AND US.CD_USUARIO = EX.T_HT_USUARIO_CD_USUARIO" + " AND EX.ID = ?");
+			stmt = conexao.prepareStatement("SELECT * FROM T_HT_PRESSAO PR, T_HT_USUARIO US"
+					+ " WHERE US.CD_USUARIO = PR.T_HT_USUARIO_CD_USUARIO"
+					+ " AND PR.ID = ?");
 
 			stmt.setInt(1, id);
 			rs = stmt.executeQuery();
 
 			if (rs.next()) {
-				int tempoExec = rs.getInt("VL_TEMPO_EXEC");
+				UsuarioEntity usuario = DAOUtil.getInstance().getUsuarioFromResultSet(rs);
+				double sistolica = rs.getDouble("VL_SISTOLICA");
+				double diastolica = rs.getDouble("VL_DIASTOLICA");
 				java.sql.Date data = rs.getDate("DT_DATA");
 				Calendar dataCalendar = Calendar.getInstance();
 				dataCalendar.setTimeInMillis(data.getTime());
-
-				UsuarioEntity usuario = DAOUtil.getInstance().getUsuarioFromResultSet(rs);
-				AtividadeFisicaEntity atividadeFisica = DAOUtil.getInstance().getAtividadeFisicaFromResultSet(rs);
-
-				result = new ExercicioEntity(id, usuario, atividadeFisica, tempoExec, dataCalendar);
+				result = new PressaoEntity(id, sistolica, diastolica, dataCalendar, usuario);
 			}
 
 		} catch (SQLException e) {

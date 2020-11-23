@@ -21,6 +21,7 @@ public class ConnectionManager {
 	  
 	        conexao = DriverManager.getConnection(
 		            "jdbc:oracle:thin:@127.0.0.1:1521/orcl_teste", "SYSTEM", "1234");
+	        
 	  
 	      } catch (Exception e) {
 	        e.printStackTrace();

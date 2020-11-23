@@ -19,7 +19,8 @@ public class ExercicioEntity implements EntityInterface {
 	 * @param tempoExecutado quantidade de tempo executado em minutos
 	 * @param data data da criacao do dado
 	 */
-	public ExercicioEntity(UsuarioEntity usuario, AtividadeFisicaEntity atividade, int tempoExecutado, Calendar data) {
+	public ExercicioEntity(int id, UsuarioEntity usuario, AtividadeFisicaEntity atividade, int tempoExecutado, Calendar data) {
+		this.id = id;
 		this.usuario = usuario;
 		this.atividade = atividade;
 		this.tempoExecutado = tempoExecutado;

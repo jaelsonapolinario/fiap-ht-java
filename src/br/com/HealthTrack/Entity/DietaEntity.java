@@ -1,5 +1,6 @@
 package br.com.HealthTrack.Entity;
 
+import java.util.Calendar;
 import java.util.Date;
 import br.com.HealthTrack.Interface.EntityInterface;
 
@@ -12,7 +13,8 @@ public class DietaEntity implements EntityInterface {
 	private UsuarioEntity usuario;
 	private RefeicaoEntity refeicao;
 	private double calorias;
-	private Date data;
+	private Calendar data;
+	private int id;
 	
 	/**
 	 * Cria uma instancia de Dieta
@@ -21,8 +23,9 @@ public class DietaEntity implements EntityInterface {
 	 * @param calorias quantidade de calorias da refeicao
 	 * @param data data da criacao do dado
 	 */
-	public DietaEntity(UsuarioEntity usuario, RefeicaoEntity refeicao, double calorias, Date data) {
+	public DietaEntity(int id, UsuarioEntity usuario, RefeicaoEntity refeicao, double calorias, Calendar data) {
 		super();
+		this.id = id;
 		this.usuario = usuario;
 		this.refeicao = refeicao;
 		this.calorias = calorias;
@@ -81,7 +84,7 @@ public class DietaEntity implements EntityInterface {
 	 * Retorna a data
 	 * @return data
 	 */
-	public Date getData() {
+	public Calendar getData() {
 		return data;
 	}
 	
@@ -89,10 +92,15 @@ public class DietaEntity implements EntityInterface {
 	 * Atribui um valor a data
 	 * @param data 
 	 */
-	public void setData(Date data) {
+	public void setData(Calendar data) {
 		this.data = data;
 	}
-	
-	
-	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 }

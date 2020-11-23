@@ -1,5 +1,6 @@
 package br.com.HealthTrack.Entity;
 
+import java.util.Calendar;
 import java.util.Date;
 import br.com.HealthTrack.Interface.EntityInterface;
 
@@ -9,10 +10,11 @@ import br.com.HealthTrack.Interface.EntityInterface;
  * @version 1.0
  */
 public class AnatomiaEntity implements EntityInterface {
+	private int id;
 	private UsuarioEntity usuario;
 	private double altura;
 	private double peso;
-	private Date data;
+	private Calendar data;
 	
 	/**
 	 * Cria uma instancia de Anatomia
@@ -21,8 +23,9 @@ public class AnatomiaEntity implements EntityInterface {
 	 * @param peso peso do usuario
 	 * @param data data do momento da criacao do dado
 	 */
-	public AnatomiaEntity(UsuarioEntity usuario, double altura, double peso, Date data) {
+	public AnatomiaEntity(int id, UsuarioEntity usuario, double altura, double peso, Calendar data) {
 		super();
+		this.id = id;
 		this.usuario = usuario;
 		this.altura = altura;
 		this.peso = peso;
@@ -81,7 +84,7 @@ public class AnatomiaEntity implements EntityInterface {
 	 * Retorna a data
 	 * @return data
 	 */
-	public Date getData() {
+	public Calendar getData() {
 		return data;
 	}
 
@@ -89,8 +92,16 @@ public class AnatomiaEntity implements EntityInterface {
 	 * Atribui um valor a data
 	 * @param data
 	 */
-	public void setData(Date data) {
+	public void setData(Calendar data) {
 		this.data = data;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	

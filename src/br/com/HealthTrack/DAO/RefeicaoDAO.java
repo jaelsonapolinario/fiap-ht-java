@@ -12,7 +12,7 @@ import br.com.HealthTrack.Interface.EntityInterface;
 import br.com.HealthTrack.Singleton.ConnectionManager;
 
 /**
- * Classe DAO da entidade AtividadeFisicaEntity
+ * Classe DAO da entidade RefeicaoaEntity
  * 
  * @author Andrea Serpeloni - aserpeloni@hotmail.com
  * @author Fernando Grieco Feres - fegferes@gmail.com
@@ -22,14 +22,14 @@ import br.com.HealthTrack.Singleton.ConnectionManager;
  * 
  * @version 1.0
  */
-public class AtividadeFisicaDAO implements DAOInterface {
+public class RefeicaoDAO implements DAOInterface {
 
 	private Connection conexao;
 
 	/**
-	 * Cria uma instancia de AtividadeFisicaDAO
+	 * Cria uma instancia de RefeicaoDAO
 	 */
-	public AtividadeFisicaDAO() {
+	public RefeicaoDAO() {
 	}
 
 	/**
@@ -38,19 +38,20 @@ public class AtividadeFisicaDAO implements DAOInterface {
 	 * @return ArrayList lista de itens do DAO
 	 */
 	public List<EntityInterface> getAll() {
+		// Cria uma lista de colaboradores
 		List<EntityInterface> lista = new ArrayList<EntityInterface>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
 			conexao = ConnectionManager.getInstance().getConnection();
-			stmt = conexao.prepareStatement("SELECT CD_ATIVIDADE, DS_ATIVIDADE FROM T_HT_AT_FISICA");
+			stmt = conexao.prepareStatement("SELECT CD_REFEICAO, DS_REFEICAO FROM T_HT_REFEICAO");
 			rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				int codigo = rs.getInt("CD_ATIVIDADE");
-				String descricao = rs.getString("DS_ATIVIDADE");
+				int codigo = rs.getInt("CD_REFEICAO");
+				String descricao = rs.getString("DS_REFEICAO");
 
-				EntityInterface dado = new AtividadeFisicaEntity(codigo, descricao);
+				EntityInterface dado = new RefeicaoEntity(codigo, descricao);
 				lista.add(dado);
 			}
 		} catch (SQLException e) {
@@ -69,12 +70,12 @@ public class AtividadeFisicaDAO implements DAOInterface {
 
 	@Override
 	public boolean insert(EntityInterface entity) {
-		AtividadeFisicaEntity dado = (AtividadeFisicaEntity) entity;
+		RefeicaoEntity dado = (RefeicaoEntity) entity;
 		PreparedStatement stmt = null;
 		boolean result = false;
 		try {
 			conexao = ConnectionManager.getInstance().getConnection();
-			String sql = "INSERT INTO T_HT_AT_FISICA (CD_ATIVIDADE, DS_ATIVIDADE) VALUES (SQ_AT_FISICA.NEXTVAL, ?)";
+			String sql = "INSERT INTO T_HT_REFEICAO (CD_REFEICAO, DS_REFEICAO) VALUES (SQ_REFEICAO.NEXTVAL, ?)";
 			stmt = conexao.prepareStatement(sql);
 			stmt.setString(1, dado.getDescricao());
 
@@ -90,21 +91,20 @@ public class AtividadeFisicaDAO implements DAOInterface {
 				e.printStackTrace();
 			}
 		}
-
 		return result;
 	}
 
 	@Override
 	public boolean update(int id, EntityInterface entity) {
-		AtividadeFisicaEntity dado = (AtividadeFisicaEntity) entity;
+		RefeicaoEntity dado = (RefeicaoEntity) entity;
 		PreparedStatement stmt = null;
 		boolean result = false;
 		try {
 			conexao = ConnectionManager.getInstance().getConnection();
-			String sql = "UPDATE T_HT_AT_FISICA SET DS_ATIVIDADE = ? WHERE CD_ATIVIDADE = ?";
+			String sql = "UPDATE T_HT_REFEICAO SET DS_REFEICAO = ? WHERE CD_REFEICAO = ?";
 			stmt = conexao.prepareStatement(sql);
 			stmt.setString(1, dado.getDescricao());
-			stmt.setInt(2, id);
+			stmt.setInt(2, dado.getCodigo());
 			stmt.executeUpdate();
 
 			result = true;
@@ -128,7 +128,7 @@ public class AtividadeFisicaDAO implements DAOInterface {
 		boolean result = false;
 		try {
 			conexao = ConnectionManager.getInstance().getConnection();
-			String sql = "DELETE FROM T_HT_AT_FISICA WHERE CD_ATIVIDADE = ?";
+			String sql = "DELETE FROM T_HT_REFEICAO WHERE CD_REFEICAO = ?";
 			stmt = conexao.prepareStatement(sql);
 			stmt.setInt(1, id);
 			stmt.executeUpdate();
@@ -149,20 +149,21 @@ public class AtividadeFisicaDAO implements DAOInterface {
 
 	@Override
 	public EntityInterface findById(int id) {
-		EntityInterface result = null;
+		RefeicaoEntity refeicao = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
 			conexao = ConnectionManager.getInstance().getConnection();
-			stmt = conexao.prepareStatement("SELECT CD_ATIVIDADE, DS_ATIVIDADE FROM T_HT_AT_FISICA");
+			stmt = conexao.prepareStatement("SELECT ,* FROM T_HT_REFEICAO WHERE CD_REFEICAO = ?");
+			stmt.setInt(1, id);
 			rs = stmt.executeQuery();
 
 			if (rs.next()) {
-				int codigo = rs.getInt("CD_ATIVIDADE");
-				String descricao = rs.getString("DS_ATIVIDADE");
-
-				result = new AtividadeFisicaEntity(codigo, descricao);
+				int codigo = rs.getInt("CD_REFEICAO");
+				String descricao = rs.getString("DS_REFEICAO");
+				refeicao = new RefeicaoEntity(codigo, descricao);
 			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -174,7 +175,6 @@ public class AtividadeFisicaDAO implements DAOInterface {
 				e.printStackTrace();
 			}
 		}
-		return result;
+		return refeicao;
 	}
-
 }
